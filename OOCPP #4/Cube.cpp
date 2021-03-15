@@ -1,6 +1,8 @@
 #include <iostream>
 #include <time.h>
 #include <sstream>
+#include <string>
+
 
 #include "Cube.hpp"
 
@@ -8,170 +10,164 @@
 using namespace std;
 
 
-int Cube::countID = 1;
+int cube::countID = 1;
 
-Cube::Cube()
-{
-    CubeID = countID;
+cube::cube(){
+    cubeID = countID;
     countID++;
 }
 
-Cube::~Cube()
-{
+cube::cube(string color, int mass, int acceleration){
+    setColor(color);
+    setMass(mass);
+    setAcceleration(acceleration);
+    cubeID = countID;
+    countID++;
 }
 
-void Cube::setMass(const int &Mass)
-{
-    if(checkMass(Mass))
-        this->Mass = Mass;
+void cube::inCube(string &color, int &mass, int &acceleration){
+    setColor(color);
+    setMass(mass);
+    setAcceleration(acceleration);
+}
+
+cube::~cube(){
+}
+
+void cube::setMass(int mass){
+    if(checkMass(mass))
+        this->mass = mass;
     else
         throw invalid_argument("Invalid mass");
 }
 
-void Cube::setAcceleration(const int &Acceleration)
-{
-    if(checkAcceleration(Acceleration))
-        this->Acceleration = Acceleration;
+void cube::setAcceleration(int acceleration){
+    if(checkAcceleration(acceleration))
+        this->acceleration = acceleration;
     else
         throw invalid_argument("Invalid Acceleration");
 }
 
-void Cube::setColor(const string &Color)
-{
-    this->Color = Color;
+void cube::setColor(string color){
+    this->color = color;
 }
 
-int Cube::getMass()
-{
-    return Mass;
+int cube::getMass() const{
+    return mass;
 }
 
-int Cube::getAcceleration()
-{
-    return Acceleration;
+int cube::getAcceleration() const{
+    return acceleration;
 }
 
-string Cube::getColor()
-{
-    return Color;
+string cube::getColor() const{
+    return color;
 }
 
-string Cube::toString() const
-{
+int cube::getForce() const{
+    return mass * acceleration;
+}
+
+string cube::toString() const{
     ostringstream ss;
-    ss << "Color: " << Color << endl;
-    ss << "Mass: " << Mass << endl;
-    ss << "Acceleration: " << Acceleration << endl;
-    ss << "(" << CubeID << ") Cube color is " << Color << " and has " << Mass * Acceleration << " force.\n" << endl;
+    ss << "Color: " << color << endl;
+    ss << "Mass: " << mass << endl;
+    ss << "Acceleration: " << acceleration << endl;
+    ss << "(" << cubeID << ") Cube color is " << color << " and has " << getForce() << " force.\n" << endl;
     return ss.str();
 }
 
-bool Cube::operator==(const Cube &n) const
-{
-    if(Mass == n.Mass){
+bool cube::operator==(const cube &other) const{
+    if(mass == other.mass){
         return true;
     }else{
         return false;
     }
 }
 
-bool Cube::operator!=(const Cube &n) const
-{
-    return !(*this == n);
+bool cube::operator!=(const cube &other) const{
+    return !(*this == other);
 }
 
-bool Cube::operator>(const Cube &n) const
-{
-    if(Mass > n.Mass){
+bool cube::operator>(const cube &other) const{
+    if(mass > other.mass){
         return true;
     }else{
         return false;
     }
 }
 
-bool Cube::operator<(const Cube &n) const
-{
-    return n > *this;
+bool cube::operator<(const cube &other) const{
+    return other > *this;
 }
 
-bool Cube::operator>=(const Cube &n) const
-{
-    if(*this ==n){
+bool cube::operator>=(const cube &other) const{
+    if(*this ==other){
         return true;
     }else{
-        return *this > n;
+        return *this > other;
     }
 }
 
-bool Cube::operator<=(const Cube &n) const
-{
-    if(*this ==n){
+bool cube::operator<=(const cube &other) const{
+    if(*this ==other){
         return true;
     }else{
-        return *this < n;
+        return *this < other;
     }
 }
 
-Cube Cube::operator++()
-{
-    ++Mass;
+cube cube::operator++(){
+    ++mass;
     return *this;
 }
 
-Cube Cube::operator++(int)
-{
-    Cube temp = *this;
-    ++Mass;
+cube cube::operator++(int){
+    cube temp = *this;
+    ++mass;
     return temp;
 }
 
-Cube Cube::operator--()
-{
-    --Mass;
+cube cube::operator--(){
+    --mass;
     return *this;
 }
 
-Cube Cube::operator--(int)
-{
-    Cube temp = *this;
-    --Mass;
+cube cube::operator--(int){
+    cube temp = *this;
+    --mass;
     return temp;
 }
 
-istream& operator>>(std::istream &is, Cube &is_Cube)
-{
-    Cube temp;
-    is >> temp.Mass >> temp.Acceleration >> temp.Color;
+istream& operator>>(std::istream &is, cube &is_cube){
+    string temp_color;
+    int temp_mass;
+    int temp_acceleration;
 
-    Cube other;
-    other.setMass(temp.Mass);
-    other.setAcceleration(temp.Acceleration);
-    other.setColor(temp.Color);
+    is >> temp_color >> temp_mass >> temp_acceleration;
+    is_cube.inCube(temp_color, temp_mass, temp_acceleration);
 
-    is_Cube = other;
     return is;
 }
 
-ostream& operator<<(std::ostream &os, const Cube &os_Cube)
-{
-    os << os_Cube.toString();
+ostream& operator<<(std::ostream &os, const cube &os_cube){
+    os << os_cube.toString();
     return os;
 }
 
-    bool Cube::checkMass(int Mass)
-{
-        if(Mass >= 0)
+bool cube::checkMass(int mass){
+    if(mass >= 0){
         return true;
-        else
+    }else{
         return false;
-
+    }
 }
 
-bool Cube::checkAcceleration(int Acceleration)
-{
-        if(Acceleration >= 0)
-        return true;
-        else
+bool cube::checkAcceleration(int acceleration){
+    if(acceleration >= 0){
+         return true;
+    }else{
         return false;
-
+    }
 }
+
