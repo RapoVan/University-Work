@@ -4,7 +4,7 @@
 #include <string>
 
 
-#include "cube.h"
+#include "Cube.h"
 
 
 using namespace std;
