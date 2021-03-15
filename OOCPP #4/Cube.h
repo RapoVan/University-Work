@@ -4,49 +4,54 @@
 #define CUBE_H
 
 
-class Cube{
+class cube{
 
     private:
 
-    int Mass, Acceleration;
-    std::string Color;
-    static int countID;
-    int CubeID;
+        int mass, acceleration;
+        std::string color;
+        static int countID;
+        int cubeID;
+
 
     public:
 
-    Cube();
-    ~Cube();
+        cube();
+        cube(std::string, int, int);
+        void inCube(std::string&, int&, int&);
+        ~cube();
 
-    void setMass(const int &Mass);
-    void setAcceleration(const int &Acceleration);
-    void setColor(const std::string &Color);
+        void setMass(int);
+        void setAcceleration(int);
+        void setColor(std::string);
 
-    int getMass();
-    int getAcceleration();
-    std::string getColor();
+        int getMass() const;
+        int getAcceleration() const;
+        std::string getColor() const;
+        int getForce() const;
 
-    std::string toString() const;
+        std::string toString() const;
 
-    bool operator==(const Cube &n) const;
-    bool operator!=(const Cube &n) const;
-    bool operator>(const Cube &n) const;
-    bool operator<(const Cube &n) const;
-    bool operator>=(const Cube &n) const;
-    bool operator<=(const Cube &n) const;
+        bool operator==(const cube&) const;
+        bool operator!=(const cube&) const;
+        bool operator>(const cube&) const;
+        bool operator<(const cube&) const;
+        bool operator>=(const cube&) const;
+        bool operator<=(const cube&) const;
 
-    Cube operator++();
-    Cube operator++(int);
-    Cube operator--();
-    Cube operator--(int);
+        cube operator++();
+        cube operator++(int);
+        cube operator--();
+        cube operator--(int);
 
-    friend std::istream& operator>>(std::istream&, Cube&);
-    friend std::ostream& operator<<(std::ostream&, const Cube&);
+        friend std::ostream &operator<<(std::ostream&, const cube&);
+        friend std::istream &operator>>(std::istream&, cube&);
+
 
     private:
 
-    bool checkMass(int);
-    bool checkAcceleration(int);
+        bool checkMass(int);
+        bool checkAcceleration(int);
 
     };
 
