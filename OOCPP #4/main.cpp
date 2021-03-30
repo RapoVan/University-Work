@@ -10,13 +10,13 @@ int main(){
 
 try{
 
-    Cube C1;
+    cube C1;
     cout << "Mass, Acceleration, Color" << endl;
     cin >> C1;
     cout << C1 << endl;
 
     cout << "Compare:\n";
-    Cube C2;
+    cube C2;
     C2.setMass(10);
     bool  compare = C1 == C2;
     cout << compare << "\n" <<endl;
