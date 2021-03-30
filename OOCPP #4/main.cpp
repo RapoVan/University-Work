@@ -11,7 +11,7 @@ int main(){
 try{
 
     cube C1;
-    cout << "Mass, Acceleration, Color" << endl;
+    cout << "Color, Mass, Acceleration" << endl;
     cin >> C1;
     cout << C1 << endl;
 
